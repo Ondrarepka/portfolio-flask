@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %} <title>Campaigns</title> {% endblock %}
+
+{% block body %} 
+    <div class="content">
+        <h1>Campaigns Page</h1>
+        <p>This is the list of campaigns and one-shots I DMed.</p>
+        <table>
+            <tr>
+                <th>Campaign Name</th>
+                <th>System</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>Magus Vagus</td>
+                <td>Shadowrun 5E</td>
+                <td>No</td>
+                <td>View Character | Send a message | Etc.</td>
+            </tr>
+            <form action="">
+                <input type="text" name="content" id="content">
+                <input type="submit" value="Add Campaign" id="btn_add">
+            </form>
+        </table>
+    </div>
+{% endblock %}
