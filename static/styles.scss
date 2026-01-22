@@ -1,1 +1,238 @@
-body {background-color: cadetblue;}
+// color variables
+
+$bg_pane: #1e1e2e;
+$secondary_pane: #11111b;
+$secondary_pane_1: #181825;
+$surface_0: #313244;
+$surface_1: #45475a;
+$surface_2: #585b70;
+$overlay_0: #6c7086;
+$overlay_1: #7f849c;
+$overlay_2: #9399b2;
+$text: #cdd6f4; // body text + headlines
+$subtext_0: #a6adc8; //Sub headline
+$subtext_1: #bac2de; //label
+$subtle: #7f849c; // less important text
+$link: #89b4fa; // links + also TAGS, PILLS
+$success: #a6e3a1; // success messages
+$warning: #f9e2af; // warning messages
+$error: #f38ba8; // error messages
+$selection_bg: #9399b2; // text selection background 20 - 30% opa
+$cursor: #f5e0dc; // text cursor
+$mauve: #cba6f7; // accents
+
+
+/*
+ C at*ppuccin Mocha color palette
+ Rosewater #f5e0dc
+ Flamingo #f2cdcd
+ Pink #f5c2e7
+ Mauve #cba6f7
+ Red #f38ba8
+ Maroon #eba0ac
+ Peach #fab387
+ Yellow #f9e2af
+ Green #a6e3a1
+ Teal #94e2d5
+ Sky #89dceb
+ Sapphire #74c7ec
+ Blue #89b4fa
+ Lavender #b4befe
+ Text #cdd6f4
+ Subtext1 #bac2de
+ Subtext0 #a6adc8
+ Overlay2 #9399b2
+ Overlay1 #7f849c
+ Overlay0 #6c7086
+ Surface2 #585b70
+ Surface1 #45475a
+ Surface0 #313244
+ Base #1e1e2e
+ Mantle #181825
+ Crust #11111b 
+ */
+
+ body {
+    font-family: "Fira Sans", sans-serif;
+    background-color: $bg_pane;
+    color: $text;
+    margin: 0;
+    padding: 0;
+
+ }
+
+ .content {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: $secondary_pane;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid $surface_1;
+            text-align: left;
+        }
+
+        th {
+            background-color: $surface_1;
+        }
+
+        tr:nth-child(even) {
+            background-color: $surface_0;
+        }
+
+        a {
+            color: $link;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            textarea {
+                padding: 8px;
+                border: 1px solid $surface_2;
+                border-radius: 4px;
+                background-color: $secondary_pane_1;
+                color: $text;
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 60px;
+            }
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+
+            label {
+                margin-bottom: 5px;
+            }
+
+            textarea {
+                padding: 8px;
+                border: 1px solid $surface_2;
+                border-radius: 4px;
+                background-color: $secondary_pane_1;
+                color: $text;
+                resize: vertical;
+                min-height: 80px;
+            }
+        }
+
+        .form-group-checkbox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+
+            label {
+                margin: 0;
+            }
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+            margin-top: 10px;
+
+            input[type="submit"] {
+                padding: 10px 20px;
+                background-color: $overlay_0;
+                color: $text;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+
+                &:hover {
+                    background-color: lighten($overlay_0, 10%);
+                }
+            }
+        }
+    }
+
+    form.single-column {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            padding: 8px;
+            border: 1px solid $surface_2;
+            border-radius: 4px;
+            background-color: $secondary_pane_1;
+            color: $text;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: $overlay_0;
+            color: $text;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            align-self: flex-start;
+
+            &:hover {
+                background-color: lighten($overlay_0, 10%);
+            }
+        }
+
+        a {
+            margin-top: 10px;
+            color: $link;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+
+ }

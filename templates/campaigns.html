@@ -6,23 +6,67 @@
     <div class="content">
         <h1>Campaigns Page</h1>
         <p>This is the list of campaigns and one-shots I DMed.</p>
+        
+        {% if campaigns | length < 1 %}
+            <p>No campaigns found. Add a new campaign below.</p>
+        {% else %}
         <table>
             <tr>
+                <th>Active</th>
                 <th>Campaign Name</th>
                 <th>System</th>
-                <th>Active</th>
+                <th>Description</th>
+                <th>Started On</th>
+                <th>My Character</th>
+                <th>Added On</th>
                 <th>Actions</th>
             </tr>
+            {% for campaign in campaigns %}
             <tr>
-                <td>Magus Vagus</td>
-                <td>Shadowrun 5E</td>
-                <td>No</td>
-                <td>View Character | Send a message | Etc.</td>
+                <td>{{ "Yes" if campaign.active else "No" }}</td>
+                <td>{{ campaign.name }}</td>
+                <td>{{ campaign.system }}</td>
+                <td>{{ campaign.description }}</td>
+                <td>{{ campaign.started_on }}</td>
+                <td>{{ campaign.my_character }}</td>
+                <td>{{ campaign.added_on }} </td>
+                <td>
+                    <a href="/editcampaign/{{ campaign.id }}">Edit</a>
+                    <a href="/deletecampaign/{{ campaign.id }}">Delete</a>
+                </td>
             </tr>
-            <form action="">
-                <input type="text" name="content" id="content">
-                <input type="submit" value="Add Campaign" id="btn_add">
-            </form>
+            {% endfor %}
+        {% endif %}           
         </table>
+        <h2>Add a Campaign:</h2>
+        <form action="/campaigns" method="POST">
+            <div class="form-group">
+                <label for="name">Campaign Name:</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="system">System:</label>
+                <input type="text" name="system" id="system" required>
+            </div>
+            <div class="form-group-full">
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="started_on">Started On:</label>
+                <input type="date" name="started_on" id="started_on" required>
+            </div>
+            <div class="form-group">
+                <label for="my_character">My Character:</label> 
+                <input type="text" name="my_character" id="my_character">
+            </div>
+            <div class="form-group-checkbox">
+                <input type="checkbox" name="active" id="active">
+                <label for="active">Active</label>
+            </div>
+            <div class="form-submit">
+                <input type="submit" value="Add Campaign" id="btn_add">
+            </div>
+            </form>
     </div>
 {% endblock %}
