@@ -4,9 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     {% block head %} {% endblock %}
 </head>
 <body>
-    {% block body %} {% endblock %}
+    <div class="terminal-container{% if session.get('terminal_minimized') %} minimized{% endif %}">
+        <div class="terminal-header">
+            <div class="terminal-title">guest@portfolio: ~</div>
+            <form method="POST" action="{{ url_for('toggle_terminal') }}" class="terminal-toggle-form">
+                <input type="hidden" name="current_page" value="{{ request.path }}">
+                <button type="submit" class="terminal-toggle-btn" title="{% if session.get('terminal_minimized') %}Maximize{% else %}Minimize{% endif %}">
+                    {% if session.get('terminal_minimized') %}
+                    ▼
+                    {% else %}
+                    ▲
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="terminal-output">
+                {% if not session.get('terminal_history') %}
+                <div class="welcome-text">
+                    <pre>
+ _               _  ___            _         
+| |   ___ _ _ __| || _ \ ___ _ __ (_)______ __
+| |__/ _ \ '_/ _` ||   / -_) '_ \| |_ /_ /_ /
+|____\___/_| \__,_||_|_\___| .__/|_/__|/__|/__|
+                           |_|                 
+ ___          _    __      _ _      
+| _ \___ _ _| |_ / _|___ | (_)___  
+|  _/ _ \ '_|  _|  _/ _ \| | / _ \ 
+|_| \___/_|  \__|_| \___/|_|_\___/ 
+                    </pre>
+                    <p>Welcome to my portfolio, it is styled as a linux terminal! Which is my system of choice. Please, feel free to explore and have fun with the commands.</p>
+                    <p>If you find the terminal window annoying while you read the content, you can minimize it using the button in the top right corner of the terminal window.</p>
+                    <p>Type <span class="highlight">help</span> to see available commands.</p>
+                    <p>Or start by exploring the <span class="highlight">cd about</span> to learn more about me.</p>
+                    <p></p>
+                </div>
+                {% endif %}
+                
+                {% for entry in session.get('terminal_history', []) %}
+                    <div class="output-command">
+                        <span class="terminal-prompt">guest@portfolio:~$</span> {{ entry.command }}
+                    </div>
+                    {% if entry.output %}
+                    <div class="output-result">{{ entry.output | safe }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            <form method="POST" action="{{ url_for('terminal_command') }}" class="terminal-input-line">
+                <input type="hidden" name="current_page" value="{{ request.path }}">
+                <span class="terminal-prompt">guest@portfolio:~$</span>
+                <input type="text" name="command" class="terminal-input" autocomplete="off" autofocus>
+            </form>
+        </div>
+    </div>
+
+    <div class="content-container">
+        {% block body %} {% endblock %}
+    </div>
 </body>
 </html>

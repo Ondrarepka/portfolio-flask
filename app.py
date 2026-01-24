@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -7,6 +7,7 @@ app = Flask(__name__)
 Scss(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
+app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 db = SQLAlchemy(app)
 
 class MyCampaigns(db.Model):
@@ -26,6 +27,90 @@ class MyCampaigns(db.Model):
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/toggle_terminal", methods=["POST"])
+def toggle_terminal():
+    current_page = request.form.get('current_page', '/')
+    if 'terminal_minimized' not in session:
+        session['terminal_minimized'] = False
+    session['terminal_minimized'] = not session['terminal_minimized']
+    session.modified = True
+    return redirect(current_page)
+
+@app.route("/terminal", methods=["POST"])
+def terminal_command():
+    command = request.form.get('command', '').strip()
+    current_page = request.form.get('current_page', '/')
+    
+    # Initialize terminal history in session
+    if 'terminal_history' not in session:
+        session['terminal_history'] = []
+    
+    output = ""
+    redirect_to = None
+    
+    if command:
+        # Split command into parts
+        parts = command.split()
+        cmd = parts[0] if parts else ''
+        args = parts[1:] if len(parts) > 1 else []
+        
+        # Process commands
+        if cmd == 'help':
+            output = """Available commands:
+  <span class="cmd">help</span>        - Show this help message
+  <span class="cmd">cd [page]</span>   - Navigate to a page (home, about, campaigns)
+  <span class="cmd">ls</span>          - List available pages
+  <span class="cmd">clear</span>       - Clear the terminal
+  <span class="cmd">whoami</span>      - Display current user"""
+        
+        elif cmd == 'ls':
+            output = """<span class="file">home/</span>
+<span class="file">about/</span>
+<span class="file">campaigns/</span>"""
+        
+        elif cmd == 'cd':
+            if not args:
+                redirect_to = '/'
+                output = 'Navigating to home...'
+            elif args[0] in ['home', '/', '~']:
+                redirect_to = '/'
+                output = 'Navigating to home...'
+            elif args[0] == 'about':
+                redirect_to = '/about'
+                output = 'Navigating to about...'
+            elif args[0] == 'campaigns':
+                redirect_to = '/campaigns'
+                output = 'Navigating to campaigns...'
+            else:
+                output = f'<span class="error">cd: {args[0]}: No such directory</span>'
+        
+        elif cmd == 'clear':
+            session['terminal_history'] = []
+            return redirect(current_page)
+        
+        elif cmd == 'whoami':
+            output = 'guest'
+        
+        else:
+            output = f'<span class="error">Command not found: {cmd}</span>\nType <span class="highlight">help</span> for available commands.'
+        
+        # Add to history
+        session['terminal_history'].append({
+            'command': command,
+            'output': output
+        })
+        session.modified = True
+    
+    # Redirect if command specifies navigation
+    if redirect_to:
+        return redirect(redirect_to)
+    
+    return redirect(current_page)
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 @app.route("/campaigns", methods=["GET", "POST"])
 def campaigns():
