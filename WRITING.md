@@ -226,6 +226,20 @@ If neither `url` nor `repo` is set, no buttons appear on the card.
 
 ---
 
+## Deploying updates to the server
+
+After pushing changes to GitHub, SSH into the server and run:
+
+```bash
+cd ~/portfolio
+git pull
+sudo systemctl restart portfolio
+```
+
+The site at `ondrej.repizz.org` will reflect the changes immediately.
+
+---
+
 ## Quick example post
 
 ```markdown

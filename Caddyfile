@@ -1,3 +1,3 @@
-ondrej.repka.org {
-    reverse_proxy localhost:5001
+ondrej.repizz.org {
+    reverse_proxy 172.17.0.1:5001
 }
