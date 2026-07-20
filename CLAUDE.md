@@ -61,20 +61,44 @@ Add `featured: true` to a portfolio item or app to show it on the home page.
 3. Add an entry in `data/apps/` with `url:` pointing to the route
 
 ## Deployment
-Site runs at `ondrej.repka.org` on homelab via Caddy + Gunicorn + systemd.
+Site runs at `ondrej.repizz.org` on homelab server `repka` (Ubuntu) via Caddy (Docker) + Gunicorn + systemd.
 
+### Server: repka (user: repizz)
+- Gunicorn binds to `0.0.0.0:5001` (must be 0.0.0.0, not 127.0.0.1, so Docker Caddy can reach it)
+- Caddy runs in Docker with `network_mode: host` — compose file at `/home/repizz/docker/caddy/`
+- UFW allows ports 80, 443 (Caddy) and 5001 from `172.17.0.0/16` (Docker bridge)
+- Caddyfile at `/home/repizz/docker/caddy/Caddyfile` — uses `localhost:5001` as upstream
+
+### Deploy flow (after pushing to GitHub)
 ```bash
-# Start / restart
+# On repka
+cd ~/portfolio
+git pull
 sudo systemctl restart portfolio
+```
 
-# Enable on boot (first time)
+### First-time setup on a new server
+```bash
+cd ~/portfolio
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
 sudo cp portfolio.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now portfolio
-sudo systemctl reload caddy
+
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw allow from 172.17.0.0/16 to any port 5001
 ```
 
-Gunicorn binds to `127.0.0.1:5001`. Caddy handles TLS automatically.
+### Caddy (Docker) — reload config
+```bash
+docker exec caddy caddy reload --config /etc/caddy/Caddyfile
+```
+
+Caddy handles TLS automatically via Let's Encrypt.
 
 ## Source
 Original design: `Portfolio blog and apps site.zip` (Claude Design export, kept for reference).
