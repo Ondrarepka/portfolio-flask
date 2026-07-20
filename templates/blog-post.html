@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — Ondřej Řepka{% endblock %}
+
+{% block content %}
+
+<article class="container-narrow" style="padding-top:70px;padding-bottom:120px">
+
+  <a href="{{ url_for('blog') }}" class="mono-label" style="text-decoration:none;font-size:14px">← back to blog</a>
+
+  <div style="display:flex;align-items:center;gap:12px;margin:24px 0 14px">
+    <span class="mono-small" style="color:var(--p-subtext0)">{{ post.date }}</span>
+    <span class="mono-small" style="font-size:11px;color:var(--p-pink);background:var(--p-surface0);padding:2px 8px;border-radius:6px">{{ post.tag }}</span>
+  </div>
+
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:40px;line-height:1.15;margin:0 0 28px;color:var(--p-text)">
+    {{ post.title }}
+  </h1>
+
+  <div class="article-body">
+    {{ post.html | safe }}
+  </div>
+
+</article>
+
+{% endblock %}

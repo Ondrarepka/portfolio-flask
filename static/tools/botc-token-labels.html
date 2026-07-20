@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clocktower Tray Label Sheet</title>
+<style>
+  :root{
+    --ink:#1c1526;
+    --ink-2:#2c2138;
+    --plum:#3a2a4d;
+    --parch:#efe6d2;
+    --parch-2:#e4d7bb;
+    --line:#c9b98f;
+    --gold:#c9a24b;
+    --blood:#8a2f2a;
+    --blood-2:#a83c34;
+    --muted:#8b7f96;
+    --shadow:0 1px 0 rgba(0,0,0,.25), 0 12px 30px -14px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, #2a2036 0%, var(--ink) 60%) fixed;
+    color:var(--parch);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- App chrome ---------- */
+  .app-chrome{max-width:1080px;margin:0 auto;padding:34px 22px 90px;}
+
+  header.masthead{
+    text-align:center;
+    padding:10px 0 24px;
+    border-bottom:1px solid rgba(201,162,75,.28);
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--gold);opacity:.85;margin:0 0 12px;
+  }
+  h1{
+    font-size:clamp(26px,4.4vw,42px);
+    font-weight:600;letter-spacing:.01em;line-height:1.05;
+    margin:0;color:#f3ead4;
+  }
+  h1 .thin{display:block;font-size:.44em;letter-spacing:.36em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;margin-top:14px;}
+  .sub{max-width:560px;margin:16px auto 0;color:#b6a9c2;font-size:15px;line-height:1.5;}
+  .sub b{color:var(--parch);font-weight:600;}
+
+  /* ---------- Layout ---------- */
+  .work{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start;}
+  @media (max-width:820px){.work{grid-template-columns:1fr;}}
+
+  .panel{
+    background:linear-gradient(180deg,var(--ink-2),var(--plum));
+    border:1px solid rgba(201,162,75,.22);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:20px 20px 22px;
+    position:sticky;top:20px;
+  }
+  @media (max-width:820px){.panel{position:static;}}
+
+  .panel h2{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 16px;font-weight:600;
+  }
+  .group{margin-bottom:18px;}
+  .group + .group{padding-top:16px;border-top:1px dashed rgba(201,162,75,.18);}
+
+  label.field{display:block;font-size:12.5px;color:#cdbfda;margin-bottom:7px;letter-spacing:.02em;}
+  .row{display:flex;gap:10px;}
+  .row .stack{flex:1;}
+
+  input[type="number"], select{
+    width:100%;padding:9px 10px;border-radius:8px;
+    background:#150f1e;color:var(--parch);
+    border:1px solid rgba(201,162,75,.3);
+    font-family:"IBM Plex Mono",monospace;font-size:14px;
+  }
+  input[type="number"]:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  .toggle{display:flex;align-items:center;gap:9px;font-size:13px;color:#cdbfda;cursor:pointer;margin:9px 0;}
+  .toggle input{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;}
+
+  .rangewrap{display:flex;align-items:center;gap:10px;}
+  input[type="range"]{flex:1;accent-color:var(--gold);}
+  .rangeval{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);width:42px;text-align:right;}
+
+  .btn{
+    width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 16px;border:none;border-radius:10px;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    background:linear-gradient(180deg,var(--blood-2),var(--blood));
+    color:#fff;font-weight:600;box-shadow:0 8px 20px -10px rgba(168,60,52,.9);
+    transition:transform .08s ease, filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn:active{transform:translateY(1px);}
+  .btn.ghost{background:transparent;border:1px solid rgba(201,162,75,.4);color:var(--parch);box-shadow:none;font-weight:500;}
+  .btn.ghost:hover{background:rgba(201,162,75,.1);}
+  .btn + .btn{margin-top:10px;}
+
+  .count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);text-align:center;margin-top:14px;}
+  .count b{color:var(--gold);}
+
+  /* ---------- Drop zone ---------- */
+  .stage{min-height:200px;}
+  .drop{
+    border:2px dashed rgba(201,162,75,.4);
+    border-radius:16px;
+    background:rgba(30,22,40,.5);
+    padding:46px 24px;text-align:center;color:#b6a9c2;
+    transition:background .15s,border-color .15s;
+    cursor:pointer;
+  }
+  .drop.hot{border-color:var(--gold);background:rgba(201,162,75,.1);}
+  .drop h3{margin:0 0 8px;font-size:19px;color:var(--parch);font-weight:600;}
+  .drop p{margin:6px 0;font-size:13.5px;line-height:1.5;}
+  .drop .mono{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em;}
+
+  /* ---------- Sheet preview (true scale) ---------- */
+  .sheets-scroll{
+    margin-top:4px;
+    background:rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:22px;
+    overflow:auto;
+    max-height:78vh;
+    border:1px solid rgba(201,162,75,.14);
+  }
+  .sheets{display:flex;flex-direction:column;align-items:center;gap:22px;}
+
+  .sheet{
+    background:#fbf7ec;
+    color:#000;
+    box-shadow:0 10px 40px -12px rgba(0,0,0,.7);
+    position:relative;
+    /* A4 default; JS sets exact mm dims */
+  }
+  .sheet .calib{
+    position:absolute;top:5mm;left:8mm;right:8mm;height:9mm;
+    display:flex;align-items:flex-end;gap:0;pointer-events:none;
+  }
+  .calib .bar{height:5mm;border-left:.3mm solid #333;border-bottom:.3mm solid #333;position:relative;}
+  .calib .bar::after{
+    content:attr(data-l);position:absolute;left:2px;bottom:1px;
+    font-family:"IBM Plex Mono",monospace;font-size:2.6mm;color:#333;white-space:nowrap;
+  }
+  .calib .tick{width:10mm;border-left:.3mm solid #666;height:2.4mm;}
+
+  .grid{
+    display:flex;flex-wrap:wrap;
+    align-content:flex-start;
+    /* padding + gap set inline by JS in mm */
+  }
+  .cell{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
+  .disc{
+    border-radius:50%;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    background:transparent;
+  }
+  .disc.bg-cream{background:radial-gradient(circle at 50% 42%, #f4ecd6 0%, #e7d9b6 78%, #d9c79b 100%);}
+  .disc.bg-white{background:#ffffff;}
+  .disc.ring::after{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    border:.3mm solid rgba(0,0,0,.18);pointer-events:none;
+  }
+  .disc.cutguide{outline:.2mm dashed rgba(0,0,0,.32);outline-offset:0;}
+  .disc img{width:100%;height:100%;object-fit:contain;display:block;}
+  .cell .cap{
+    font-family:"IBM Plex Mono",monospace;
+    text-align:center;line-height:1.05;color:#2a2a2a;
+    word-break:break-word;
+  }
+
+  .hint-print{
+    margin-top:16px;font-size:12.5px;color:#b6a9c2;line-height:1.55;
+    background:rgba(138,47,42,.14);border:1px solid rgba(168,60,52,.35);
+    border-radius:10px;padding:12px 14px;
+  }
+  .hint-print b{color:#f0c9a0;}
+
+  footer.note{margin-top:30px;text-align:center;font-size:12px;color:var(--muted);line-height:1.6;}
+  footer.note a{color:var(--gold);}
+
+  /* ---------- PRINT ---------- */
+  @media screen{ .print-only{display:none;} }
+
+  @media print{
+    @page{ size:A4; margin:0; }
+    body{background:#fff;color:#000;}
+    .app-chrome > *:not(.stage), .panel, header.masthead, .hint-print, footer.note, .drop{display:none !important;}
+    .app-chrome{padding:0;max-width:none;}
+    .sheets-scroll{background:none;padding:0;margin:0;max-height:none;overflow:visible;border:none;}
+    .sheets{gap:0;}
+    .sheet{
+      box-shadow:none;
+      page-break-after:always;
+      break-after:page;
+      background:#fff;
+    }
+    .sheet:last-child{page-break-after:auto;}
+    .no-calib .calib{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="app-chrome">
+
+  <header class="masthead">
+    <p class="eyebrow">Ravenswood Bluff · Storyteller's Workshop</p>
+    <h1>Tray Label Sheet<span class="thin">Reminder-token icon grid · prints true to size</span></h1>
+    <p class="sub">Drop in your character icon images and this lays them out as <b>25.5&nbsp;mm</b> discs — the exact width of a reminder token — ready to print, cut, and glue to the bottom of each tray slot. Handles base game, Travellers, Fabled and all of <b>The Carousel</b>.</p>
+  </header>
+
+  <div class="work">
+
+    <!-- CONTROLS -->
+    <aside class="panel">
+      <h2>Sheet setup</h2>
+
+      <div class="group">
+        <div class="row">
+          <div class="stack">
+            <label class="field" for="dia">Disc Ø (mm)</label>
+            <input type="number" id="dia" value="25.5" min="5" max="60" step="0.5">
+          </div>
+          <div class="stack">
+            <label class="field" for="gap">Gap (mm)</label>
+            <input type="number" id="gap" value="3" min="0" max="20" step="0.5">
+          </div>
+        </div>
+        <p class="count" style="text-align:left;margin-top:8px;">Official reminder token = <b>25.5&nbsp;mm</b>. Character token = 44.5&nbsp;mm.</p>
+      </div>
+
+      <div class="group">
+        <label class="field">Icon inset within disc</label>
+        <div class="rangewrap">
+          <input type="range" id="inset" min="0" max="30" value="8" step="1">
+          <span class="rangeval" id="insetVal">8%</span>
+        </div>
+
+        <label class="field" style="margin-top:14px;">Disc background</label>
+        <select id="bg">
+          <option value="bg-cream" selected>Parchment (token look)</option>
+          <option value="bg-white">White</option>
+          <option value="">Transparent</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label class="toggle"><input type="checkbox" id="ring" checked> Thin edge ring</label>
+        <label class="toggle"><input type="checkbox" id="cut" checked> Dashed cut guide</label>
+        <label class="toggle"><input type="checkbox" id="labels"> Name under each disc</label>
+        <label class="toggle"><input type="checkbox" id="sort" checked> Sort by filename (A→Z)</label>
+        <label class="toggle"><input type="checkbox" id="calib" checked> Print calibration ruler</label>
+      </div>
+
+      <div class="group">
+        <button class="btn" id="printBtn">⎙ Print sheet</button>
+        <button class="btn ghost" id="addBtn">+ Add more icons</button>
+        <button class="btn ghost" id="clearBtn">Clear all</button>
+        <p class="count"><b id="nCount">0</b> icons · <b id="pCount">0</b> page(s)</p>
+      </div>
+    </aside>
+
+    <!-- STAGE -->
+    <section class="stage">
+      <div class="drop" id="drop">
+        <h3>Drop icon images here</h3>
+        <p>or click to choose files — select the whole batch at once</p>
+        <p class="mono">PNG · JPG · SVG · WEBP · GIF</p>
+      </div>
+
+      <div class="hint-print" id="printHint" style="display:none;">
+        <b>Before printing:</b> in the print dialog set <b>Scale = 100%</b> (turn OFF “Fit to page”) and margins to <b>None / Default</b>, or the 25.5&nbsp;mm size will be wrong. After printing, measure the ruler strip at the top — the marked <b>100&nbsp;mm</b> should measure exactly 100&nbsp;mm. If it doesn't, divide 100 by what you measured and nudge the disc Ø, then reprint.
+      </div>
+
+      <div class="sheets-scroll" id="sheetsScroll" style="display:none;">
+        <div class="sheets" id="sheets"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="note">
+    Icons are copyright © The Pandemonium Institute — use this for your own copy of the game.<br>
+    Grab character icons from the official <a href="https://script.bloodontheclocktower.com" target="_blank" rel="noopener">script tool</a> or the digital almanac. This tool never uploads your files; everything stays in your browser.
+  </footer>
+</div>
+
+<input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
+
+<script>
+(function(){
+  "use strict";
+
+  // A4 in mm
+  const A4W = 210, A4H = 297;
+  const PAGE_MARGIN = 8;      // mm printable margin
+  const CALIB_RESERVE = 16;   // mm reserved at top of page 1 when ruler on
+
+  let icons = []; // {name, url}
+
+  const $ = id => document.getElementById(id);
+  const drop = $("drop"), fileInput = $("fileInput"),
+        sheets = $("sheets"), sheetsScroll = $("sheetsScroll"),
+        printHint = $("printHint");
+
+  const ctrl = {
+    dia:$("dia"), gap:$("gap"), inset:$("inset"), insetVal:$("insetVal"),
+    bg:$("bg"), ring:$("ring"), cut:$("cut"), labels:$("labels"),
+    sort:$("sort"), calib:$("calib"),
+    nCount:$("nCount"), pCount:$("pCount")
+  };
+
+  // ---- File handling ----
+  function addFiles(fileList){
+    const arr = Array.from(fileList).filter(f => f.type.startsWith("image/"));
+    arr.forEach(f=>{
+      icons.push({ name: f.name.replace(/\.[^.]+$/,""), url: URL.createObjectURL(f) });
+    });
+    render();
+  }
+
+  drop.addEventListener("click", ()=> fileInput.click());
+  $("addBtn").addEventListener("click", ()=> fileInput.click());
+  fileInput.addEventListener("change", e=> addFiles(e.target.files));
+
+  ["dragenter","dragover"].forEach(ev=>
+    document.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add("hot"); }));
+  ["dragleave","drop"].forEach(ev=>
+    document.addEventListener(ev, e=>{ e.preventDefault();
+      if(ev==="drop" || e.target===drop) drop.classList.remove("hot"); }));
+  document.addEventListener("drop", e=>{
+    e.preventDefault(); drop.classList.remove("hot");
+    if(e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+  });
+
+  $("clearBtn").addEventListener("click", ()=>{
+    icons.forEach(i=>URL.revokeObjectURL(i.url));
+    icons = []; render();
+  });
+
+  // ---- Controls ----
+  ["input","change"].forEach(ev=>{
+    [ctrl.dia,ctrl.gap,ctrl.inset,ctrl.bg,ctrl.ring,ctrl.cut,ctrl.labels,ctrl.sort,ctrl.calib]
+      .forEach(el=> el.addEventListener(ev, render));
+  });
+  ctrl.inset.addEventListener("input", ()=> ctrl.insetVal.textContent = ctrl.inset.value + "%");
+
+  $("printBtn").addEventListener("click", ()=> window.print());
+
+  // ---- Render ----
+  function render(){
+    const n = icons.length;
+    ctrl.nCount.textContent = n;
+
+    const hasIcons = n > 0;
+    sheetsScroll.style.display = hasIcons ? "block" : "none";
+    printHint.style.display = hasIcons ? "block" : "none";
+    drop.style.padding = hasIcons ? "22px 24px" : "46px 24px";
+
+    if(!hasIcons){ sheets.innerHTML=""; ctrl.pCount.textContent="0"; return; }
+
+    const dia = clamp(parseFloat(ctrl.dia.value)||25.5, 5, 60);
+    const gap = clamp(parseFloat(ctrl.gap.value)||0, 0, 30);
+    const inset = (parseInt(ctrl.inset.value,10)||0)/100;
+    const bgClass = ctrl.bg.value;
+    const wantRing = ctrl.ring.checked;
+    const wantCut = ctrl.cut.checked;
+    const wantLabels = ctrl.labels.checked;
+    const wantCalib = ctrl.calib.checked;
+
+    const capH = wantLabels ? Math.max(3, dia*0.16) : 0; // mm label height
+    const cellW = dia;
+    const cellH = dia + capH;
+
+    // usable area
+    const usableW = A4W - PAGE_MARGIN*2;
+    const cols = Math.max(1, Math.floor((usableW + gap) / (cellW + gap)));
+
+    // rows per page (page 1 reserves calibration strip if on)
+    const fullH = A4H - PAGE_MARGIN*2;
+    const rowStep = cellH + gap;
+    const rowsFirst = Math.max(1, Math.floor(((fullH - (wantCalib?CALIB_RESERVE:0)) + gap) / rowStep));
+    const rowsRest  = Math.max(1, Math.floor((fullH + gap) / rowStep));
+    const perFirst = cols * rowsFirst;
+    const perRest  = cols * rowsRest;
+
+    // ordering
+    let list = icons.slice();
+    if(ctrl.sort.checked) list.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true}));
+
+    // paginate
+    const pages = [];
+    let i = 0, first = true;
+    while(i < list.length){
+      const take = first ? perFirst : perRest;
+      pages.push(list.slice(i, i+take));
+      i += take; first = false;
+    }
+    ctrl.pCount.textContent = pages.length;
+
+    // build
+    sheets.innerHTML = "";
+    pages.forEach((pageIcons, pIdx)=>{
+      const sheet = document.createElement("div");
+      sheet.className = "sheet" + (wantCalib ? "" : " no-calib");
+      sheet.style.width = A4W + "mm";
+      sheet.style.height = A4H + "mm";
+
+      // calibration ruler only on first page
+      if(wantCalib && pIdx === 0){
+        const cal = document.createElement("div");
+        cal.className = "calib";
+        // one 100mm bar with 10mm ticks
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.width = "100mm";
+        bar.setAttribute("data-l","│ 100 mm — should measure exactly 100 mm after printing");
+        for(let t=0;t<10;t++){ const tk=document.createElement("div"); tk.className="tick"; bar.appendChild(tk); }
+        cal.appendChild(bar);
+        sheet.appendChild(cal);
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      grid.style.padding = PAGE_MARGIN + "mm";
+      if(wantCalib && pIdx === 0) grid.style.paddingTop = (PAGE_MARGIN + CALIB_RESERVE) + "mm";
+      grid.style.gap = gap + "mm";
+      grid.style.width = A4W + "mm";
+      grid.style.height = A4H + "mm";
+      grid.style.alignContent = "flex-start";
+
+      pageIcons.forEach(icon=>{
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.width = cellW + "mm";
+
+        const disc = document.createElement("div");
+        disc.className = "disc" + (bgClass ? " "+bgClass : "") +
+                         (wantRing ? " ring":"") + (wantCut ? " cutguide":"");
+        disc.style.width = dia + "mm";
+        disc.style.height = dia + "mm";
+        disc.style.padding = (dia*inset) + "mm";
+
+        const img = document.createElement("img");
+        img.src = icon.url;
+        img.alt = icon.name;
+        disc.appendChild(img);
+        cell.appendChild(disc);
+
+        if(wantLabels){
+          const cap = document.createElement("div");
+          cap.className = "cap";
+          cap.style.fontSize = Math.max(1.6, dia*0.09) + "mm";
+          cap.style.width = cellW + "mm";
+          cap.style.marginTop = "0.6mm";
+          cap.textContent = icon.name;
+          cell.appendChild(cap);
+        }
+        grid.appendChild(cell);
+      });
+
+      sheet.appendChild(grid);
+      sheets.appendChild(sheet);
+    });
+  }
+
+  function clamp(v,min,max){ return Math.min(max, Math.max(min, v)); }
+
+  render();
+})();
+</script>
+</body>
+</html>

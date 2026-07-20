@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Ondřej Řepka{% endblock %}
+
+{% block content %}
+
+<article class="container-narrow" style="padding-top:70px;padding-bottom:120px">
+
+  <a href="{{ url_for('portfolio') }}" class="mono-label" style="text-decoration:none;font-size:14px">← back to portfolio</a>
+
+  <div style="display:flex;align-items:center;gap:12px;margin:24px 0 14px">
+    <span class="mono-small c-{{ item.tag_color }}">{{ item.tag_label }}</span>
+  </div>
+
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:40px;line-height:1.15;margin:0 0 12px;color:var(--p-text)">
+    {{ item.title }}
+  </h1>
+  <p style="font-size:17px;color:var(--p-subtext0);margin:0 0 36px;line-height:1.6">{{ item.blurb }}</p>
+
+  <div class="card-thumb card-thumb-wide">{{ item.placeholder }}</div>
+
+  {% if item.html %}
+  <div class="article-body">
+    {{ item.html | safe }}
+  </div>
+  {% else %}
+  <p style="color:var(--p-overlay1);font-family:'JetBrains Mono',monospace;font-size:13px">
+    No write-up yet — add one to the <code>.md</code> file body.
+  </p>
+  {% endif %}
+
+</article>
+
+{% endblock %}

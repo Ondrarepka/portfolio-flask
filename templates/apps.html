@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Apps & Tools — Ondřej Řepka{% endblock %}
+
+{% block content %}
+
+<section class="container" style="padding-top:70px;padding-bottom:20px">
+  <span class="mono-label">~/apps</span>
+  <h1 class="heading-lg">Apps &amp; Tools</h1>
+  <p style="font-size:16px;color:var(--p-subtext0);max-width:600px;margin:0 0 40px">
+    Small apps I built for myself that got out of hand. Use them, break them, tell me about it.
+  </p>
+</section>
+
+<section class="container" style="padding-bottom:100px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+
+  {% for app in apps %}
+  <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="app-icon bg-{{ app.color }}" style="width:52px;height:52px;font-size:18px">{{ app.initials }}</div>
+      <div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0;color:var(--p-text)">{{ app.name }}</h3>
+        <span class="mono-small c-{{ app.status_color }}">{{ app.status }}</span>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--p-subtext0);margin:0;line-height:1.6">{{ app.description }}</p>
+    {% if app.url or app.repo %}
+    <div style="display:flex;gap:10px;margin-top:4px">
+      {% if app.url %}
+      <a href="{{ app.url }}"
+         class="btn-sm-primary"
+         {% if app.new_tab == 'true' %}target="_blank" rel="noopener noreferrer"{% endif %}>Try it</a>
+      {% endif %}
+      {% if app.repo %}
+      <a href="{{ app.repo }}" class="btn-sm-secondary">Source</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+</section>
+
+{% endblock %}

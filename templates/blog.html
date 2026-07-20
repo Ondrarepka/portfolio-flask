@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Blog — Ondřej Řepka{% endblock %}
+
+{% block content %}
+
+<section class="container-narrow" style="padding-top:70px;padding-bottom:20px">
+  <span class="mono-label">~/blog</span>
+  <h1 class="heading-lg">Notes &amp; rambling</h1>
+  <p style="font-size:16px;color:var(--p-subtext0);margin:0 0 40px">
+    Design opinions, wanna be dev stories, eldritch horrors and the occasional cat photo caption disguised as a post.
+  </p>
+</section>
+
+<section class="container-narrow" style="padding-bottom:100px;display:flex;flex-direction:column;gap:20px">
+
+  {% for post in posts %}
+  <a href="{{ url_for('blog_post', slug=post.slug) }}" style="text-decoration:none;display:flex;flex-direction:column;gap:8px" class="card">
+    <div style="padding:26px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span class="mono-small" style="color:var(--p-subtext0)">{{ post.date }}</span>
+        <span class="mono-small" style="font-size:11px;color:var(--p-pink);background:var(--p-surface0);padding:2px 8px;border-radius:6px">{{ post.tag }}</span>
+      </div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:0 0 8px;color:var(--p-text)">{{ post.title }}</h3>
+      <p style="font-size:15px;color:var(--p-subtext0);margin:0;line-height:1.6">{{ post.excerpt }}</p>
+    </div>
+  </a>
+  {% else %}
+  <p style="color:var(--p-subtext0);font-size:16px">No posts yet. Drop a <code>.md</code> file in the <code>posts/</code> folder.</p>
+  {% endfor %}
+
+</section>
+
+{% endblock %}
