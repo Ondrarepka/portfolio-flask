@@ -103,8 +103,10 @@ def get_portfolio_item(slug):
 def _load_apps():
     apps = []
     for path in sorted(APPS_DIR.glob('*.md')):
-        meta, _ = _parse_fm(path.read_text(encoding='utf-8'))
+        meta, body = _parse_fm(path.read_text(encoding='utf-8'))
         meta['status_color'] = STATUS_COLORS.get(meta.get('status', ''), 'overlay0')
+        meta['slug'] = _slug_from_stem(path.stem)
+        meta['html'] = markdown.markdown(body, extensions=['fenced_code', 'tables']) if body else ''
         apps.append(meta)
     return apps
 
@@ -115,6 +117,10 @@ def get_apps():
         _apps_cache = _load_apps()
         _apps_at = time.time()
     return _apps_cache
+
+
+def get_app_item(slug):
+    return next((a for a in get_apps() if a['slug'] == slug), None)
 
 
 # ── Routes ─────────────────────────────────────────────────────────────────────
@@ -146,6 +152,14 @@ def portfolio_item(slug):
 @app.route('/apps')
 def apps():
     return render_template('apps.html', current='apps', apps=get_apps())
+
+
+@app.route('/apps/<slug>')
+def app_item(slug):
+    item = get_app_item(slug)
+    if not item:
+        abort(404)
+    return render_template('app-item.html', current='apps', item=item)
 
 
 @app.route('/blog')

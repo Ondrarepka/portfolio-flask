@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ item.name }} — Ondřej Řepka{% endblock %}
+
+{% block content %}
+
+<article class="container-narrow" style="padding-top:70px;padding-bottom:120px">
+
+  <span class="mono-label"><a href="{{ url_for('home') }}">~</a>/<a href="{{ url_for('apps') }}">apps</a>/{{ item.slug }}</span>
+
+  <div style="display:flex;align-items:center;gap:18px;margin:28px 0 20px">
+    <div class="app-icon bg-{{ item.color }}" style="width:64px;height:64px;font-size:22px;flex-shrink:0">{{ item.initials }}</div>
+    <div>
+      <h1 style="font-family:'Space Grotesk',sans-serif;font-size:36px;line-height:1.15;margin:0 0 4px;color:var(--p-text)">{{ item.name }}</h1>
+      <span class="mono-small c-{{ item.status_color }}">{{ item.status }}</span>
+    </div>
+  </div>
+
+  <p style="font-size:17px;color:var(--p-subtext0);margin:0 0 28px;line-height:1.6">{{ item.description }}</p>
+
+  {% if item.url or item.repo %}
+  <div style="display:flex;gap:10px;margin-bottom:48px">
+    {% if item.url %}
+    <a href="{{ item.url }}" class="btn-primary"
+       {% if item.new_tab == 'true' %}target="_blank" rel="noopener noreferrer"{% endif %}>Try it</a>
+    {% endif %}
+    {% if item.repo %}
+    <a href="{{ item.repo }}" class="btn-secondary" target="_blank" rel="noopener noreferrer">Source</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if item.html %}
+  <div class="article-body">
+    {{ item.html | safe }}
+  </div>
+  {% else %}
+  <p style="color:var(--p-overlay1);font-family:'JetBrains Mono',monospace;font-size:13px">
+    No write-up yet — add one to the <code>.md</code> file body.
+  </p>
+  {% endif %}
+
+</article>
+
+{% endblock %}

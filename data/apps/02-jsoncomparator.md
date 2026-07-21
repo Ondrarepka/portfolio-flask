@@ -3,7 +3,7 @@ name: JSON Comparator
 initials: JC
 color: teal
 status: beta
-description: Python tool for clever comparing two sets of json files (vale:key).
+description: Python tool for clever comparing two sets of json files (value:key).
 repo: https://github.com/Ondrarepka/JsonComparator
 featured: false
 ---

@@ -231,6 +231,8 @@ new_tab: true
 
 If neither `url` nor `repo` is set, no buttons appear on the card.
 
+Each app card links to its own page at `/apps/slug`. Add a body below the frontmatter to write a description, backstory, or technical notes — same Markdown as blog posts.
+
 ---
 
 ## Deploying updates to the server
