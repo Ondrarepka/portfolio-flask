@@ -4,7 +4,6 @@ initials: JC
 color: teal
 status: beta
 description: Python tool for clever comparing two sets of json files (vale:key).
-url: #
 repo: https://github.com/Ondrarepka/JsonComparator
 featured: false
 ---

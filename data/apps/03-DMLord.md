@@ -4,7 +4,6 @@ initials: DM
 color: red
 status: in progress
 description: Your second brain for running a TTRPG campaign.
-url: #
 repo: https://github.com/Ondrarepka/DMmeLord
 featured: true
 ---
