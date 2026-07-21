@@ -3,6 +3,7 @@ title: Storytelling tool
 category: design
 blurb: Multi-genre-system Storytelling tool.
 placeholder: PoC screenshot
+featured: true
 ---
 ## A lot of tools, none fits me
 When I started storytelling, more than 15 years ago now that I actually think about it, I used pen & paper. It held everything — notes, plots, story arcs, NPCs, maps, all of it. Great, until you wanted to find something quickly, or, like me, couldn't read your own handwriting a week later.
