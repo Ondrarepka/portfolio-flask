@@ -7,4 +7,4 @@ description: Your second brain for running a TTRPG campaign.
 repo: https://github.com/Ondrarepka/DMmeLord
 featured: true
 ---
-I wrote my idea about this in [my portfolio!](/portfolio/02-ST-tool)
+I wrote my idea about this in [my portfolio!](/portfolio/ST-tool)
