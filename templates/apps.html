@@ -14,8 +14,9 @@
 <section class="container" style="padding-bottom:100px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
 
   {% for app in apps %}
-  <a href="{{ url_for('app_item', slug=app.slug) }}" style="text-decoration:none">
-  <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:14px">
+  <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:14px;cursor:pointer"
+       data-href="{{ url_for('app_item', slug=app.slug) }}"
+       onclick="window.location=this.dataset.href">
     <div style="display:flex;align-items:center;gap:14px">
       <div class="app-icon bg-{{ app.color }}" style="width:52px;height:52px;font-size:18px">{{ app.initials }}</div>
       <div>
@@ -29,15 +30,15 @@
       {% if app.url %}
       <a href="{{ app.url }}"
          class="btn-sm-primary"
+         onclick="event.stopPropagation()"
          {% if app.new_tab == 'true' %}target="_blank" rel="noopener noreferrer"{% endif %}>Try it</a>
       {% endif %}
       {% if app.repo %}
-      <a href="{{ app.repo }}" class="btn-sm-secondary">Source</a>
+      <a href="{{ app.repo }}" class="btn-sm-secondary" onclick="event.stopPropagation()" target="_blank" rel="noopener noreferrer">Source</a>
       {% endif %}
     </div>
     {% endif %}
   </div>
-  </a>
   {% endfor %}
 
 </section>
