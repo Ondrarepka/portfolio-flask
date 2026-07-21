@@ -1,8 +1,8 @@
 ---
 title: BOTC Community planner
-category: code
+category: design
 blurb: Simple app to help people who play Blood on the Clock Tower plan events.
-placeholder: code project screenshot
+placeholder: BOTC picture
 featured: true
 ---
 ## When community becomes a business model

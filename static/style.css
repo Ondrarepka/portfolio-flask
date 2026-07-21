@@ -73,11 +73,12 @@ a { color: inherit; }
 /* ── Cards ── */
 .card { background: var(--p-mantle); border: 1px solid var(--p-surface0); border-radius: 16px; }
 .card-thumb {
-  width: 100%; aspect-ratio: 16/10; border-radius: 10px;
+  width: 100%; aspect-ratio: 16/10; border-radius: 10px; overflow: hidden;
   background: repeating-linear-gradient(135deg, var(--p-surface0), var(--p-surface0) 10px, var(--p-surface1) 10px, var(--p-surface1) 20px);
   display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px;
   font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--p-overlay1);
 }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; padding: 0; }
 .card-thumb-wide { aspect-ratio: 21/9; }
 .card-thumb-wide { border-radius: 14px; margin-bottom: 36px; }
 

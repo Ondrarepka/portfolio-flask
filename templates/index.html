@@ -27,7 +27,7 @@
     {% for item in featured_portfolio %}
     <a href="{{ url_for('portfolio_item', slug=item.slug) }}" style="text-decoration:none;display:flex;flex-direction:column;gap:14px" class="card">
       <div style="padding:20px">
-        <div class="card-thumb">{{ item.placeholder }}</div>
+        <div class="card-thumb">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.title }}">{% else %}{{ item.placeholder }}{% endif %}</div>
         <div style="margin-top:14px">
           <span class="mono-small c-{{ item.tag_color }}">{{ item.tag_label }}</span>
           <h3 class="heading-sm">{{ item.title }}</h3>

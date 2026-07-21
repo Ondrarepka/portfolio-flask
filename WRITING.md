@@ -168,7 +168,8 @@ Frontmatter fields:
 | `title`       | yes      | Displayed on the card                                      |
 | `category`    | yes      | `code`, `design`, `art`, `games`, or `music` — drives the filter buttons |
 | `blurb`       | yes      | One or two sentences shown under the title                 |
-| `placeholder` | yes      | Text shown in the striped image placeholder until you add a real image |
+| `placeholder` | yes      | Text shown in the striped placeholder when no image is set              |
+| `image`       | no       | Path to an image — shown instead of the placeholder if set             |
 | `featured`    | no       | Set to `true` to show this item in the Featured work section on the home page |
 
 Example:
@@ -182,7 +183,13 @@ placeholder: screenshot of the thing
 ---
 ```
 
-No body content needed — just the frontmatter block.
+To add an image, drop it in `static/uploads/` and set the `image` field:
+
+```
+image: /static/uploads/my-project.png
+```
+
+The image fills the thumbnail at 16:10 on cards and 21:9 on the item page — it's cropped to fit, so landscape photos work best. Without `image`, the striped placeholder with your `placeholder` text is shown instead.
 
 ---
 
