@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('theme-toggle');
   if (btn) btn.addEventListener('click', toggleTheme);
 
+  const emailBtn = document.getElementById('email-reveal-btn');
+  if (emailBtn) emailBtn.addEventListener('click', () => {
+    const e = 'ondrej.repka' + '@' + 'seznam.cz';
+    document.getElementById('email-display').textContent = e;
+    document.getElementById('email-display').style.display = 'inline';
+    emailBtn.style.display = 'none';
+  });
+
   // Portfolio filter
   const filterBtns = document.querySelectorAll('.filter-btn');
   if (filterBtns.length) {

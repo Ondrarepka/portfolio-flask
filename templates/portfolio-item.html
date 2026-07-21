@@ -5,7 +5,7 @@
 
 <article class="container-narrow" style="padding-top:70px;padding-bottom:120px">
 
-  <a href="{{ url_for('portfolio') }}" class="mono-label" style="text-decoration:none;font-size:14px">← back to portfolio</a>
+  <span class="mono-label"><a href="{{ url_for('home') }}">~</a>/<a href="{{ url_for('portfolio') }}">portfolio</a>/{{ item.slug }}</span>
 
   <div style="display:flex;align-items:center;gap:12px;margin:24px 0 14px">
     <span class="mono-small c-{{ item.tag_color }}">{{ item.tag_label }}</span>
