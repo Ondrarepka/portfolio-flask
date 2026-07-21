@@ -22,17 +22,18 @@ templates/
   index.html            — Home page (pulls featured portfolio + apps from data)
   portfolio.html        — Portfolio grid with category filter
   portfolio-item.html   — Single portfolio item page
-  apps.html             — Apps & Tools grid
+  app-item.html         — Single app/tool page
+  apps.html             — Apps & Tools grid (cards link to app-item pages)
   blog.html             — Blog post list
   blog-post.html        — Single blog post
   uses.html             — Hardware & software list (hardcoded)
 static/
   style.css             — Catppuccin CSS variables + all component styles
-  main.js               — Theme toggle, portfolio filter
+  main.js               — Theme toggle, portfolio filter, email reveal
   uploads/              — Images for posts/portfolio
   tools/                — Self-contained tool HTML files
     botc-token-labels.html
-Caddyfile               — Caddy reverse proxy config (ondrej.repka.org → :5001)
+Caddyfile               — Caddy reverse proxy config (ondrej.repizz.org → localhost:5001)
 portfolio.service       — systemd service file for Gunicorn
 WRITING.md              — Guide for adding content (posts, portfolio, apps)
 ```
@@ -49,6 +50,21 @@ Filename number prefix controls display order. Cache refreshes every hour; resta
 `code` · `design` · `art` · `games` · `music` · `prints`
 
 Add `featured: true` to a portfolio item or app to show it on the home page.
+
+## Individual pages
+- Portfolio items → `/portfolio/<slug>` — rendered from `data/portfolio/NN-slug.md` body
+- Apps → `/apps/<slug>` — rendered from `data/apps/NN-slug.md` body
+- Blog posts → `/blog/<slug>` — rendered from `posts/<slug>.md` body
+- All slugs strip the `NN-` number prefix automatically
+
+## Portfolio images
+Add `image: /static/uploads/filename.png` to a portfolio item's frontmatter to show a real image instead of the striped placeholder. Cropped to 16:10 on cards, 21:9 on the item page.
+
+## Breadcrumb navigation
+All pages use `~/section` breadcrumbs where `~` links to home and each segment links to its index. Styled via `.mono-label a` in style.css — no underline, hover turns lavender.
+
+## Contact section
+Home page has social link buttons (GitHub, LinkedIn, Instagram, Spotify) and an email reveal button. Email is obfuscated in `main.js` — update the string there if the address changes.
 
 ## Design system
 - **Theme**: Catppuccin Mocha (dark) / Latte (light) — toggled via `data-theme` on `<html>`, persisted in `localStorage` key `ondrej-theme`
