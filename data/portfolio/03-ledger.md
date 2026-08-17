@@ -36,3 +36,11 @@ What's next for Ledger? Huge things, honestly. System-specific support is the bi
 Beyond systems: some kind of social feature would be nice, or at least a marketplace/preview of chronicle schemas other people have already built, so nobody's starting from a blank page. And campaign settings in general could use a ton more features — that part's honestly still thin.
  
 Stick around and find out :) Go try it yourself — one campaign's free. And hit me with ideas on what to build next :) [Ledger](https://ledger.repizz.org/)
+
+Finally a gallery
+
+![Compendium](/static/uploads/compendium.webp)
+![Page from GM's perspective](/static/uploads/page-gm.webp)
+![Page from Players's perspective](/static/uploads/page-player.webp)
+![HUB](/static/uploads/hub.webp)
+![Graph](/static/uploads/graph.webp)
