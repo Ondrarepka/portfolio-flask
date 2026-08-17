@@ -2,7 +2,7 @@
 title: Ledger - TTRPG campaign manager
 category: design
 blurb: Multi-genre-system Storytelling tool.
-placeholder: PoC screenshot
+image: /static/uploads/hub.webp
 featured: true
 ---
 ## Building Ledger — a campaign keeper where the point is what it doesn't show you
