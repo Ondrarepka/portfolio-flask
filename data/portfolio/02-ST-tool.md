@@ -27,3 +27,8 @@ A player character section, because nobody remembers a PC's backstory past sessi
 Catppuccin themed, obviously
 
 Summer's busy, but I'll keep you posted.
+
+```markdown
+> Update — I finished the beta! It's called Ledger now
+```
+Check it out in [apps](/apps) or read a about it first in my [portfolio](/portfolio/03-ledger)

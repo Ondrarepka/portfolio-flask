@@ -1,10 +1,10 @@
 ---
-name: DM Lord
-initials: DM
+name: Ledger
+initials: L
 color: red
-status: in progress
+status: beta
 description: Your second brain for running a TTRPG campaign.
-repo: https://github.com/Ondrarepka/DMmeLord
+url: https://ledger.repizz.org/
 featured: true
 ---
-I wrote my idea about this in [my portfolio!](/portfolio/ST-tool)
+I wrote my idea about this in [my portfolio!](/portfolio/ledger)
